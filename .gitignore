@@ -14,9 +14,3 @@ Thumbs.db
 
 # IDEs
 .vscode/
-.idea/
-*.swp
-*.swo
-
-# Archivos xlsx temporales
-*.xlsx~

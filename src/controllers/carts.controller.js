@@ -102,20 +102,22 @@ export async function updateCart(req, res) {
     const { items } = req.body;
     
     // Validar datos requeridos
-    if (!items || !Array.isArray(items) || items.length === 0) {
+    if (!items || !Array.isArray(items)) {
       return res.status(400).json({
         success: false,
-        error: 'Falta el campo "items" o está vacío'
+        error: 'Falta el campo "items" o no es un array'
       });
     }
     
-    // Validar estructura de items
-    for (const item of items) {
-      if (!item.product_id || !item.qty) {
-        return res.status(400).json({
-          success: false,
-          error: 'Cada item debe tener "product_id" y "qty"'
-        });
+    // Validar estructura de items (solo si hay items)
+    if (items.length > 0) { 
+      for (const item of items) {
+        if (!item.product_id || !item.qty) {
+          return res.status(400).json({
+            success: false,
+            error: 'Cada item debe tener "product_id" y "qty"'
+          });
+        }
       }
     }
     

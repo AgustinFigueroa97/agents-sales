@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { testConnection } from './config/db.js';
 import productsRoutes from './routes/products.routes.js';
 import cartsRoutes from './routes/carts.routes.js';
+import chatRoutes from './routes/chat.routes.js';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -16,7 +17,8 @@ app.use(express.json());
 
 // Rutas de productos
 app.use('/products', productsRoutes);
-app.use('/carts', cartsRoutes);
+app.use('/carts', cartsRoutes); 
+app.use('/chat', chatRoutes);
 
 // Ruta de prueba (health check)
 app.get('/health', (req, res) => {
@@ -42,6 +44,7 @@ async function startServer() {
     console.log(`🏥 Health check: http://localhost:${PORT}/health`);
     console.log(`📦 Productos: http://localhost:${PORT}/products`);
     console.log(`🛒 Carritos: http://localhost:${PORT}/carts`);
+    console.log(`💬 Chat: POST http://localhost:${PORT}/chat`);
   });
 }
 

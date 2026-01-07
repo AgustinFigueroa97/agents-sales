@@ -19,6 +19,12 @@ export async function createCart({ session_id, items }) {
   try {
     await client.query('BEGIN');
     
+    const existingCart = await getCartBySessionId(session_id);
+
+    if (existingCart) {
+      throw new Error(`Ya tenés un carrito activo (ID: ${existingCart.id}). Usá "editar_carrito" para modificarlo.`);
+    }
+
     // 1. Validar que todos los productos existan y tengan stock
     for (const item of items) {
       const product = await productService.getProductById(item.product_id);
@@ -158,6 +164,19 @@ export async function updateCart({ cartId, items }) {
     
     if (cartResult.rows.length === 0) {
       throw new Error('Carrito no encontrado');
+    }
+
+    if (items.length === 0) {
+      await client.query('DELETE FROM cart_items WHERE cart_id = $1', [cartId]);
+      await client.query('DELETE FROM carts WHERE id = $1', [cartId]);
+      await client.query('COMMIT');
+      
+      return {
+        id: cartId,
+        message: 'Carrito cancelado completamente',
+        items: [],
+        total_amount: 0
+      };
     }
     
     // 2. Validar todos los productos nuevos
