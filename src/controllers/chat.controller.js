@@ -29,7 +29,7 @@ export async function chat(req, res) {
     
     const salesAgent = await getAgent(session_id);
     
-    // Invocar con thread_id (memoria por usuario), en este caso session_id corresponde al whatsapp del usuario
+    // Invocar con thread_id (memoria por usuario), en este caso session_id en otra controlador correspondera al numero de whatsapp del usuario
     const response = await salesAgent.invoke(
       { messages: [{ role: "user", content: message }] },
       { configurable: { thread_id: session_id } }

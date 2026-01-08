@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware para parsear JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rutas de productos
 app.use('/products', productsRoutes);
@@ -45,6 +46,7 @@ async function startServer() {
     console.log(`Productos: http://localhost:${PORT}/products`);
     console.log(`Carritos: http://localhost:${PORT}/carts`);
     console.log(`Chat: POST http://localhost:${PORT}/chat`);
+    console.log(`WhatsApp webhook: POST http://localhost:${PORT}/chat/webhook`);
   });
 }
 
