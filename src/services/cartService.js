@@ -25,6 +25,8 @@ export async function createCart({ session_id, items }) {
       throw new Error(`Ya tenés un carrito activo (ID: ${existingCart.id}). Usá "editar_carrito" para modificarlo.`);
     }
 
+    // Estos controles son por las dudas, por si el tool es usado fuera del agente, sino directamente desde la Api. 
+
     // 1. Validar que todos los productos existan y tengan stock
     for (const item of items) {
       const product = await productService.getProductById(item.product_id);

@@ -5,7 +5,7 @@ import * as productService from '../services/productService.js';
 export const searchProductsTool = tool(
   async ({ tipo_prenda, color, categoria, talla }) => {
     
-    console.log('🔍 Buscando productos:', { tipo_prenda, color, categoria, talla });
+    console.log('Buscando productos:', { tipo_prenda, color, categoria, talla });
     
     // Buscar en la BD
     const products = await productService.searchProducts({
@@ -33,8 +33,8 @@ export const searchProductsTool = tool(
     name: "buscar_productos",
     description: "Busca productos de ropa disponibles para venta mayorista (mínimo 50 unidades por producto). Usa esta herramienta cuando el usuario pregunte por prendas, colores, talles o categorías.",
     schema: z.object({
-      tipo_prenda: z.string().optional().describe('Tipo de prenda: Pantalón, Camiseta, Falda, Sudadera, etc.'),
-      color: z.string().optional().describe('Color: Verde, Blanco, Negro, Azul, Rojo, etc.'),
+      tipo_prenda: z.string().optional().describe('Tipo de prenda: Pantalón, Camiseta, Chaqueta, Falda, Sudadera, etc.'),
+      color: z.string().optional().describe('Color: Verde, Blanco, Gris, Negro, Azul, Rojo, Amarillo, etc.'),
       categoria: z.string().optional().describe('Categoría: Deportivo, Casual, Formal'),
       talla: z.string().optional().describe('Talla: S, M, L, XL, XXL')
     })

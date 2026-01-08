@@ -5,7 +5,7 @@ import pool from '../config/db.js';
  */
 export async function searchProducts({ tipo_prenda, color, categoria, talla }) {
   try {
-    let query = 'SELECT * FROM products WHERE disponible = true';
+    let query = 'SELECT * FROM products WHERE disponible = true AND cantidad_disponible >= 50'; // Estoy filtrando solo productos disponibles y con stock mínimo 50, es la politica que decidi
     const params = [];
     let paramCount = 1;
     

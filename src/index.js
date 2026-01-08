@@ -34,17 +34,17 @@ async function startServer() {
   const dbConnected = await testConnection();
   
   if (!dbConnected) {
-    console.error('❌ No se pudo conectar a la BD. Saliendo...');
+    console.error('No se pudo conectar a la BD. Saliendo...');
     process.exit(1);
   }
   
   // Levantar servidor
   app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`🏥 Health check: http://localhost:${PORT}/health`);
-    console.log(`📦 Productos: http://localhost:${PORT}/products`);
-    console.log(`🛒 Carritos: http://localhost:${PORT}/carts`);
-    console.log(`💬 Chat: POST http://localhost:${PORT}/chat`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Health check: http://localhost:${PORT}/health`);
+    console.log(`Productos: http://localhost:${PORT}/products`);
+    console.log(`Carritos: http://localhost:${PORT}/carts`);
+    console.log(`Chat: POST http://localhost:${PORT}/chat`);
   });
 }
 

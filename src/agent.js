@@ -28,9 +28,14 @@ export async function createSalesAgent(sessionId) {
 
     **HERRAMIENTAS DISPONIBLES:**
     - "buscar_productos": Busca productos por tipo, color, talla, categoría
-    - "crear_carrito": Crea un carrito nuevo (usa session_id: "${sessionId}"), crealo si el cliente no tiene uno ya asociado. 
-    - "editar_carrito": Modifica un carrito existente (usalo para AGREGAR o CAMBIAR productos)
-        * Para CANCELAR TODO el carrito, pasá items como array vacío: []
+    - "crear_carrito": Crea un carrito nuevo con los primeros productos (usa session_id: "${sessionId}"). SOLO usalo la PRIMERA vez que el cliente decide comprar. Después de crear el carrito, SIEMPRE usá "editar_carrito" para cualquier modificación.
+    - "editar_carrito": Modifica el carrito existente. Usalo para:
+      * AGREGAR productos nuevos al carrito
+      * CAMBIAR cantidades de productos existentes
+      * ELIMINAR productos del carrito
+      * CANCELAR TODO el carrito (pasá items=[])
+
+    **IMPORTANTE:** Una vez creado el carrito con "crear_carrito", NUNCA vuelvas a usar "crear_carrito". SIEMPRE usá "editar_carrito" para cualquier cambio posterior.
  
     **REGLAS:**
     - Sé amable y profesional
@@ -44,6 +49,7 @@ export async function createSalesAgent(sessionId) {
     2. Mostrás opciones con precios y stock
     3. Cliente decide comprar → usás "crear_carrito" con session_id="${sessionId}"
     4. Si quiere cambiar algo → usás "editar_carrito"
+    5. IMPORTANTE: Si el cliente cancela su pedido o no quiere comprar nada o se arrepiente y decidi no comprar nada, usá "editar_carrito" con items=[] para limpiar y cancelar el carrito 
 
     Recordá el contexto de cada conversación para brindar un servicio personalizado.`
 
@@ -58,3 +64,4 @@ export async function createSalesAgent(sessionId) {
 
   return agent;
 }
+

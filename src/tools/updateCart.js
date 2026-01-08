@@ -5,8 +5,8 @@ import * as cartService from '../services/cartService.js';
 export const updateCartTool = tool(
   async ({ cart_id, items }) => {
     try {
-      console.log('✏️ Actualizando carrito:', cart_id);
-      console.log('📦 Nuevos items:', items);
+      console.log('Actualizando carrito:', cart_id);
+      console.log('Nuevos items:', items);
       
       // Actualizar carrito en la BD
       const cart = await cartService.updateCart({
@@ -19,26 +19,26 @@ export const updateCartTool = tool(
         `- ${item.qty} ${item.tipo_prenda} ${item.talla} ${item.color} a $${item.unit_price} c/u = $${item.subtotal}`
       ).join('\n');
       
-      return `✅ Carrito #${cart.id} actualizado exitosamente! Productos actualizados: ${itemsList} Nuevo total: $${cart.total_amount} ¿Está todo bien o querés hacer algún otro cambio?`;
+      return `Carrito #${cart.id} actualizado exitosamente! Productos actualizados: ${itemsList} Nuevo total: $${cart.total_amount} ¿Está todo bien o querés hacer algún otro cambio?`;
       
     } catch (error) {
-      console.error('❌ Error actualizando carrito:', error);
+      console.error('Error actualizando carrito:', error);
       
       // Devolver mensajes de error claros al agente
       if (error.message.includes('no encontrado')) {
-        return '❌ El carrito no existe o uno de los productos no fue encontrado.';
+        return 'El carrito no existe o uno de los productos no fue encontrado.';
       }
       if (error.message.includes('no está disponible')) {
-        return '❌ Uno o más productos no están disponibles actualmente.';
+        return 'Uno o más productos no están disponibles actualmente.';
       }
       if (error.message.includes('Stock insuficiente')) {
-        return `❌ ${error.message}`;
+        return `${error.message}`;
       }
       if (error.message.includes('requiere mínimo')) {
-        return `❌ ${error.message}`;
+        return `${error.message}`;
       }
       
-      return '❌ Hubo un error al actualizar el carrito. Por favor intentá de nuevo.';
+      return 'Hubo un error al actualizar el carrito. Por favor intentá de nuevo.';
     }
   },
   {

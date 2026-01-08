@@ -15,7 +15,7 @@ export function calculateUnitPrice(product, quantity) {
 }
 
 /**
- * Calcula el subtotal de un item (qty * unit_price)
+ * Calcula el subtotal de un item 
  */
 export function calculateSubtotal(qty, unitPrice) {
   return qty * unitPrice;
